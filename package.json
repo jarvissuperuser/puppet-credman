@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/jarvissuperuser/puppet-credman/issues"
   },
-  "homepage": "https://github.com/jarvissuperuser/puppet-credman#readme"
+  "homepage": "https://github.com/jarvissuperuser/puppet-credman#readme",
+  "dependencies": {
+    "fs-extra": "^5.0.0"
+  }
 }
