@@ -1,18 +1,24 @@
 var fs = require('fs-extra');
-var ev = require('events').EventEmmitter;
-var reg = /+\.ini*/gi; 
-
+var ev= require('events').EventEmitter;
+var e = new ev();
+var reg = /\.ini*/gi; 
+var pathData = "";
+var creds = [];
 
 var credman = function(hash){
-    this.creds = this.unhash(hash);
-    console.log(hash);
+    //this.creds = this.unhash(hash);
+    this.e = e;
+    /*this.username ="";
+    this.password ="";
+    this.type ="";
+    this.OAUTH2 ="";*/
     //TODO: Get From Path
     
 }
 
 credman.prototype.unhash = function(hash){
     if (hash){
-        var rawdata = btoa(hash);
+        var rawdata = Buffer.from(hash,'base64').toString();
         var arrdata = rawdata.split(':');
         if(arrdata.length>1){
             return arrdata;
@@ -23,16 +29,22 @@ credman.prototype.unhash = function(hash){
 }
 
 credman.prototype.getFromPath = function (path){
-    reg.test(path).lastIndex = 0;
+    reg.lastIndex = 0;
     if (reg.test(path)){
         fs.readFile(path,'utf8',function(err,data){
-            var unhashed = this.unhash(data);
-            credman.prototype.creds = unhashed;
-            this.organise(unhashed);
+            if(!err){
+                pathData = data;
+                creds = credman.prototype.unhash(pathData);
+                credman.prototype.organise(creds);
+                e.emit("path_found");
+            }
+            else
+                console.log(err);
         });
         
     }
     else{
+        console.log("not found");
         return false;
     }
 }
@@ -42,6 +54,7 @@ credman.prototype.getFromPath = function (path){
  */
 credman.prototype.organise = function(creds)
 {
+    credman.prototype.creds = creds;
     if (creds && creds[2] === "Basic"){
         credman.prototype.username = creds[0];
         credman.prototype.password = creds[1];
@@ -54,4 +67,4 @@ credman.prototype.organise = function(creds)
         credman.prototype.type = creds[2];
     }
 }
-export.module = credman;
+module.exports = credman;
