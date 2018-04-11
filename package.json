@@ -1,0 +1,24 @@
+{
+  "name": "credman",
+  "version": "0.0.1",
+  "description": "basic credintial manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarvissuperuser/puppet-credman.git"
+  },
+  "keywords": [
+    "puppeter",
+    "credintials",
+    "basic-auth"
+  ],
+  "author": "Timothy Mugadza",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/jarvissuperuser/puppet-credman/issues"
+  },
+  "homepage": "https://github.com/jarvissuperuser/puppet-credman#readme"
+}
